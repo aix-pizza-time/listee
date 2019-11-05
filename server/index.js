@@ -12,14 +12,14 @@ let _data = {
 
 const app = express();
 
-app.use(morgan('combined'));
+app.use(morgan('tiny'));
 app.use(bodyparser.json());
 app.use(cors());
 
-app.use((req, res, next) => {
-    console.log(_data);
-    next();
-});
+// app.use((req, res, next) => {
+//     console.log(_data);
+//     next();
+// });
 
 require('./routes/api.js')(app, express.Router());
 
@@ -30,9 +30,6 @@ app.listen(port, () => {
     console.log(`Listening to port ${port}`);
 });
 
-const data = () => _data;
-
 module.exports = {
-    data: data,
     stash: () => stash(data),
 };

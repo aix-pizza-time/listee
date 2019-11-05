@@ -16,8 +16,12 @@ const _add = (entry) => new Promise((resolve, reject) => {
             // Element already present, retreat!
             reject('Element already present. Will not add it again.');
         } else {
-            data['current'][id] = entry;
-            resolve({id: id, entry: entry});
+            if(entry.length <= 0){
+                reject('Empty names are not allowed. Will not add');
+            } else {
+                data['current'][id] = entry;
+                resolve({id: id, entry: entry});
+            }
         }
     }
 });
@@ -35,8 +39,12 @@ const _rename = (id, newName) => new Promise((resolve, reject) => {
             // Element already present, retreat!
             reject('Element not present. Will not rename');
         } else {
-            data['current'][id] = newName;
-            resolve({id: id, entry: newName});
+            if(newName.length <= 0){
+                reject('Empty names are not allowed. Will not rename');
+            } else {
+                data['current'][id] = newName;
+                resolve({id: id, entry: newName});    
+            }
         }
     }
 
@@ -107,12 +115,14 @@ const _lists = () => new Promise((resolve, reject) => {
 });
 
 const _get = (id = 'current') => new Promise((resolve, reject) => {
-    console.log(data);
-    try {
-        let res = data[id];
-        resolve(res);
-    } catch (e) {
-        reject(e);
+    if(id === 'current'){
+        resolve(data[id]);
+    } else {
+        if(data['archive'].hasOwnProperty(id)){
+            resolve(data['archive'][id]);
+        } else {
+            reject('ID not found');
+        }
     }
 });
 

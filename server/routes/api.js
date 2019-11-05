@@ -11,7 +11,7 @@ module.exports = function(app, router){
                 status: "ok"
             });
         }).catch((err) => {
-            res.json({
+            res.status(500).json({
                 error: '500',
                 msg: err.toString()
             });
@@ -25,7 +25,7 @@ module.exports = function(app, router){
                 status: "ok"
             });
         }).catch((err) => {
-            res.json({
+            res.status(500).json({
                 error: '500',
                 msg: err.toString()
             });
@@ -39,7 +39,7 @@ module.exports = function(app, router){
                 status: "ok"
             });
         }).catch((err) => {
-            res.json({
+            res.status(400).json({
                 error: '400',
                 msg: err.toString()
             });
@@ -54,7 +54,7 @@ module.exports = function(app, router){
             });
             next();
         }).catch((err) => {
-            res.json({
+            res.status(400).json({
                 error: '400',
                 msg: err.toString()
             });
@@ -68,7 +68,7 @@ module.exports = function(app, router){
                 lastState: data
             });
         }).catch((err) => {
-            res.json({
+            res.status(500).json({
                 error: '500',
                 msg: err.toString()
             });
@@ -82,7 +82,7 @@ module.exports = function(app, router){
                 previousState: data
             });
         }).catch((err) => {
-            res.json({
+            res.status(400).json({
                 error: '400',
                 msg: err.toString()
             });
@@ -95,7 +95,7 @@ module.exports = function(app, router){
                 deletedEntry: data
             });
         }).catch((err) => {
-            res.json({
+            res.status(400).json({
                 error: '400',
                 msg: err.toString()
             })
@@ -108,7 +108,7 @@ module.exports = function(app, router){
                 changedEntry: data
             });
         }).catch((err) => {
-            res.json({
+            res.status(400).json({
                 error: '400',
                 msg: err.toString()
             })
