@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyparser = require('body-parser');
 const morgan = require('morgan');
+const cors = require('cors');
+
 const {stash, initialize} = require('./utils/');
 
 let _data = {
@@ -12,6 +14,7 @@ const app = express();
 
 app.use(morgan('combined'));
 app.use(bodyparser.json());
+app.use(cors());
 
 app.use((req, res, next) => {
     console.log(_data);

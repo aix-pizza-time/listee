@@ -11,6 +11,4 @@ const _hash = (data, shortened = true) => {
     return (shortened ? hash.digest('hex').substr(0, 8) : hash.digest('hex'));
 }
 
-module.exports = {
-    hash: _hash
-}
+module.exports = _hash

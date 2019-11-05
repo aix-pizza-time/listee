@@ -1,11 +1,8 @@
-const cors = require('cors');
-const express = require('express');
 const controller = require('../controllers/controller');
 
 module.exports = function(app, router){
     // Mount router under API
-    app.use(router);
-    app.use(cors());
+    app.use('/api', router);
 
     router.get('/list', (req, res, next) => {
         controller.get().then((data) => {
