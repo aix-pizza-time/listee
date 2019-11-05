@@ -6,14 +6,14 @@
 </template>
 
 <script>
-import List from '@/components/List'
+import List from '@/components/List';
 
 export default {
-  name: 'Home',
-  components: {
-    List
-  }
-}
+    name: 'Home',
+    components: {
+        List
+    }
+};
 </script>
 
 <style lang="sass">
