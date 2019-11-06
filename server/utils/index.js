@@ -3,4 +3,5 @@ module.exports = {
     initialize: require('./initialize'),
     stash: require('./stash'),
     timestamp: require('./timestamp'),
+    commit: require('./commit'),
 };

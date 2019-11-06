@@ -1,6 +1,9 @@
 {
-    "current": {
-        "b75efa47": "Mozzarella 6x"
-    },
-    "archive": {}
+  "current": [
+    {
+      "id": "eb7a8794",
+      "entry": "Bier"
+    }
+  ],
+  "archive": {}
 }

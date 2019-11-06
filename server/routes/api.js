@@ -11,6 +11,7 @@ module.exports = function(app, router){
                 status: "ok"
             });
         }).catch((err) => {
+            console.log(err);
             res.status(500).json({
                 error: '500',
                 msg: err.toString()
@@ -25,6 +26,7 @@ module.exports = function(app, router){
                 status: "ok"
             });
         }).catch((err) => {
+            console.log(err);
             res.status(500).json({
                 error: '500',
                 msg: err.toString()
@@ -39,6 +41,7 @@ module.exports = function(app, router){
                 status: "ok"
             });
         }).catch((err) => {
+            console.log(err);
             res.status(400).json({
                 error: '400',
                 msg: err.toString()
@@ -54,6 +57,7 @@ module.exports = function(app, router){
             });
             next();
         }).catch((err) => {
+            console.log(err);
             res.status(400).json({
                 error: '400',
                 msg: err.toString()
@@ -68,6 +72,7 @@ module.exports = function(app, router){
                 lastState: data
             });
         }).catch((err) => {
+            console.log(err);
             res.status(500).json({
                 error: '500',
                 msg: err.toString()
@@ -82,6 +87,7 @@ module.exports = function(app, router){
                 previousState: data
             });
         }).catch((err) => {
+            console.log(err);
             res.status(400).json({
                 error: '400',
                 msg: err.toString()
@@ -95,6 +101,7 @@ module.exports = function(app, router){
                 deletedEntry: data
             });
         }).catch((err) => {
+            console.log(err);
             res.status(400).json({
                 error: '400',
                 msg: err.toString()
@@ -108,6 +115,7 @@ module.exports = function(app, router){
                 changedEntry: data
             });
         }).catch((err) => {
+            console.log(err);
             res.status(400).json({
                 error: '400',
                 msg: err.toString()
