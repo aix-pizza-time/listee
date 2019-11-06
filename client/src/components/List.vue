@@ -1,26 +1,28 @@
 <template>
-    <div class="list">
-      <h2 v-if="Object.keys(this.list).length == 0">Currently no items to be bought 🙄</h2>
+  <div class="list">
+    <h2 class="failed" v-if="getStatus === 'failed'">
+      <span>Failed to load list 😤</span>
+      <small>We are working on a solution as quick as possible 👨‍💻</small>
+    </h2>
+    <div v-else>
+      <h2 v-if="this.list.length == 0">Currently no items to be bought 🙄</h2>
       <div v-else>
-        <div v-for="(value, key) in list" :key="key" class="list-item">
-          <input :value="value" @blur="renameEntry({key,value})" class="label"/>
-          <button @click="deleteEntry({key})">
+        <div v-for="item in list" :key="item.id" class="list-item">
+          <input :value="item.entry" @blur="renameEntry(item.id,item.entry)" class="label" />
+          <button @click="deleteEntry(item.id)">
             <i class="material-icons">close</i>
           </button>
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
-import { mapGetters, mapState, mapActions } from 'vuex';
-// import ListItem from './ListItem';
+import { mapGetters, mapState } from 'vuex';
 
 export default {
   name: 'List',
-  components: {
-    // ListItem
-  },
   computed: {
     ...mapState({
       getStatus: state => state.list.getStatus,
@@ -34,10 +36,14 @@ export default {
       list: 'list'
     }),
   },
-  methods: mapActions('list', [
-    'deleteEntry',
-    'renameEntry'
-  ]),
+  methods: {
+    deleteEntry(id){
+      this.$store.dispatch('list/deleteEntry', {id});
+    },
+    renameEntry(id, name){
+      this.$store.dispatch('list/renameEntry', {id,name});
+    }
+  },
   created() {
     this.$store.dispatch('list/getList');
   }
@@ -46,6 +52,9 @@ export default {
 
 <style lang="scss" scoped>
 .list {
+  max-width: 1024px;
+  width: 100%;
+  margin: 0 auto;
   padding: 2em;
   .items {
     // &:not(:last-child) {
@@ -87,6 +96,13 @@ export default {
       vertical-align: middle;
     }
   }
-
+}
+.failed {
+  span {
+    display: block;
+  }
+  small {
+    display: block;
+  }
 }
 </style>

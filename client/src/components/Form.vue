@@ -1,8 +1,11 @@
 <template>
-  <form>
-    <input type="text" name="entry" placeholder="Ingredient, drinks, random stuff..."/>
-
-    <button>
+  <form v-on:submit.prevent @submit="add(newEntry)">
+    <input
+      type="text"
+      v-model="newEntry"
+      name="entry"
+      placeholder="Ingredient, drinks, random stuff..."/>
+    <button type="button" @click="add(newEntry)">
       <i class="material-icons">
         add_shopping_cart
       </i>
@@ -19,7 +22,8 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { mapState } from 'vuex';
+
 import {CommitButton, ResetButton} from './';
 
 export default {
@@ -28,9 +32,20 @@ export default {
     ResetButton
   },
   name: 'Form',
+  data: () => {
+    return {
+      newEntry: '',
+    };
+  },
+  computed: {
+    ...mapState({
+      addStatus: state => state.list.addStatus,
+    }),
+  },
   methods: {
-    add: () => {
-      axios.post('http://localhost:3000/api/add');
+    add(entry) {
+      this.newEntry = '';
+      this.$store.dispatch('list/addEntry', {entry});
     }
   }
 };
@@ -39,6 +54,9 @@ export default {
 <style lang="scss" scoped>
 form {
   padding: 2em 2em 1em;
+  max-width: 1024px;
+  width: 100%;
+  margin: 0 auto;
 }
 .flexbox {
   display: grid;

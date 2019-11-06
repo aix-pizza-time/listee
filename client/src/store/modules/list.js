@@ -2,6 +2,15 @@ import axios from 'axios';
 
 const host = 'http://localhost:3000';
 
+Array.prototype.findIndexById = function (id) {
+  if (typeof id !== 'string') {
+    return null;
+  } else {
+    return this.findIndex((v) => v.id === id);
+  }
+};
+
+
 const state = {
   list: {},
   getStatus: null,
@@ -13,7 +22,7 @@ const state = {
 };
 
 const getters = {
-  list: (state, getters, rootState) => {
+  list: (state) => {
     return state.list;
   }
 };
@@ -26,17 +35,17 @@ const actions = {
         commit('setList', { list: data.currentList });
       }).catch(() => {
         commit('setGetStatus', 'failed');
-        commit('setList', { list: {} });
+        commit('setList', { list: [] });
       });
   },
 
-  addEntry({state, commit}, item) {
+  addEntry({_, commit}, item) {
     // const prevList = [...state.items];
     axios.post(`${host}/api/add`, item)
       .then(({data}) => {
         commit('setAddStatus', 'successful');
         commit('pushEntryToList', data['newEntry']);
-      }).catch((err) => {
+      }).catch(() => {
         commit('setAddStatus', 'failed');
       });
   },
@@ -54,9 +63,8 @@ const actions = {
       });
   },
 
-  deleteEntry({state, commit}, {id}) {
+  deleteEntry({_, commit}, {id}) {
     // const prevList = [...state.list];
-    console.log(id);
     axios.delete(`${host}/api/delete/${id}`)
       .then(() => {
         commit('setDeleteStatus', 'successful');
@@ -82,11 +90,11 @@ const actions = {
 
 const mutations = {
   pushEntryToList (state, {id, entry}) {
-    state.list[id] = entry;
+    state.list.push({id: id, entry: entry});
   },
 
   setEntry (state, {id, entry}) {
-    state.list[id] = entry;
+    state.list.splice.set(id, 1, entry);
   },
 
   removeEntry (state, {id}){
@@ -94,12 +102,8 @@ const mutations = {
     // since this might not work, due to remaining references
     // rather reconstruct the whole object and set it to the state
     // delete state.list[id];
-    let reducedList = {};
-    Object.keys(state.list).forEach((key) => {
-      if(key !== id){
-        reducedList[key] = state.list[key];
-      }
-    });
+    let i = state.list.findIndexById(id);
+    state.list.splice(i, 1);
   },
 
   setList (state, {list}) {
