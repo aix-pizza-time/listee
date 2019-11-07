@@ -10,4 +10,6 @@ RUN yarn install
 
 COPY . .
 
+VOLUME [ "/static" ]
+
 CMD ["npm", "start"]
