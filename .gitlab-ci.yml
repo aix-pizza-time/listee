@@ -11,3 +11,5 @@ build:
     - docker build -t registry.git.rwth-aachen.de/occloxium-webdev/pizzabot/frontend ./client
     - docker push registry.git.rwth-aachen.de/occloxium-webdev/pizzabot/frontend:latest 
     - docker push registry.git.rwth-aachen.de/occloxium-webdev/pizzabot/backend:latest
+  tags:
+    - occloxium-docker
