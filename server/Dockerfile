@@ -2,7 +2,7 @@ FROM node:12
 
 LABEL maintainer="Alexander Bartolomey"
 
-WORKDIR /app
+WORKDIR /
 
 COPY package*.json ./
 
@@ -10,6 +10,6 @@ RUN yarn install
 
 COPY . .
 
-RUN ls /static
+RUN ls ./static
 
 CMD ["npm", "start"]
