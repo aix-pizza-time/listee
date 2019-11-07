@@ -18,5 +18,8 @@ footer {
     text-align: center;
     background: #242424;
     color: #ffffff;
+    a {
+      color: #ffffff;
+    }
 }
 </style>
