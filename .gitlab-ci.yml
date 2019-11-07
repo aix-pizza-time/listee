@@ -7,7 +7,7 @@ build:
   image: docker:latest
   script:
     - echo "$CI_JOB_TOKEN" | docker login registry.git.rwth-aachen.de --username gitlab-ci-token --password-stdin 
-    - docker build -t registry.git.rwth-aachen.de/occloxium-webdev/pizzabot/backend ./server/Dockerfile
-    - docker build -t registry.git.rwth-aachen.de/occloxium-webdev/pizzabot/frontend ./client/Dockerfile
-    - docker push registry.git.rwth-aachen.de/occloxium-webdev/pizzabot/frontend:latest
+    - docker build -t registry.git.rwth-aachen.de/occloxium-webdev/pizzabot/backend ./server
+    - docker build -t registry.git.rwth-aachen.de/occloxium-webdev/pizzabot/frontend 
+    - docker push registry.git.rwth-aachen.de/occloxium-webdev/pizzabot/frontend:latest ./client
     - docker push registry.git.rwth-aachen.de/occloxium-webdev/pizzabot/backend:latest
