@@ -6,10 +6,21 @@ const fs = require('fs');
  */
 const _initizalize = (directory) => {
     let contents = fs.readFileSync(`${directory}/config.json`, {encoding: 'utf8'});
-    console.log("Initialized from file. Current state:");
-    console.log();
-    console.log(contents);
-    return JSON.parse(contents);
+    try {
+        let json = JSON.parse(contents);
+        console.log("Initialized from file. Current state:");
+        console.log();
+        console.log(contents);
+        return JSON.parse(contents);
+    } catch(e) {
+        console.log(e);
+    } finally {
+        return {
+            current: [],
+            archive: {}
+        };
+    }
+    
 };
 
 module.exports = _initizalize;
