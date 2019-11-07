@@ -1,4 +1,17 @@
 {
-  "current": [],
+  "current": [
+    {
+      "id": "651a681b",
+      "entry": "Wein"
+    },
+    {
+      "id": "eb7a8794",
+      "entry": "Bier"
+    },
+    {
+      "id": "c10dbf7f",
+      "entry": "TK-Pizzen"
+    }
+  ],
   "archive": {}
 }
