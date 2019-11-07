@@ -5,7 +5,7 @@
       v-model="newEntry"
       name="entry"
       placeholder="Ingredient, drinks, random stuff..."/>
-    <button type="button" @click="add(newEntry)">
+    <button class="addButton" type="button" @click="add(newEntry)">
       <i class="material-icons">
         add_shopping_cart
       </i>
@@ -99,7 +99,7 @@ input {
   border-bottom: solid 4px #eee;
   transition: border-bottom-color linear 0.2s;
   width: 100%;
-  font-size: 1.5em;
+  font-size: 1em;
   outline: none;
   margin: 16px 0 8px;
   &:active, &:focus {
@@ -107,9 +107,9 @@ input {
     transition: border-bottom-color linear 0.02s;
   }
 }
-button {
+button.addButton {
     font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 1.5em;
+    font-size: 1.2em;
     background: #242424;
     color: #ffffff;
     display: block;
@@ -138,7 +138,7 @@ button {
 }
 button.commitButton {
     font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 1.5em;
+    font-size: 1em;
     background: #242424;
     color: #ffffff;
     display: block;
@@ -165,7 +165,7 @@ button.commitButton {
 }
 button.resetButton {
     font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 1.5em;
+    font-size: 1em;
     background: #242424;
     color: #ffffff;
     display: block;
