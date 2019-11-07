@@ -1,5 +1,5 @@
 <template>
-  <div class="state" v-if="this.display">
+  <div class="state" v-if="this.display && this.hasErrors">
     <div class="status getStatus" v-if="this.getStatus === 'failed'">
       <span>
         Could not get shopping list 🤔
@@ -62,15 +62,23 @@ export default {
   },
   data: () => {
     return {
-      display: true
-    }
+      display: true,
+      hasErrors: true,
+    };
   },
   methods: {
     close(){
       this.display = false;
     }
+  },
+  created(){
+    this.hasErrors = (this.getStatus === 'failed' ||
+        this.addStatus === 'failed' ||
+        this.renameStatus === 'failed' ||
+        this.commitStatus === 'failed' ||
+        this.resetStatus === 'failed');
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

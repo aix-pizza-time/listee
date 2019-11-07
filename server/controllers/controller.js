@@ -135,11 +135,14 @@ const _commit = () => new Promise((resolve, reject) => {
   if (Object.keys(data['current']).length <= 0) {
     reject('Current list has no data. Will not copy');
   } else {
-    let cur = data['current'];
-    cur[date] = timestamp(false);
-    data['archive'][hash(cur)] = cur;
+    let cur = {
+      date: timestamp(false),
+      list: data['current']
+    };
+    console.log('date: ' + cur.date);
+    data['archive'][hash(cur.date)] = cur;
     data['committed'] = true;
-    commit();
+    commit(data);
     resolve(data['current']);
   }
 });
@@ -156,9 +159,18 @@ const _reset = () => new Promise((resolve, reject) => {
   } else {
     let cur = data['current'];
     data['current'] = [];
-    commit();
+    data['committed'] = false;
+    commit(data);
     resolve(cur);
   }
+});
+
+const _committed = () => new Promise((resolve, reject) => {
+  if(!data.hasOwnProperty('committed')){
+    console.log('Current data set is missing the \'committed\' property. Adding it...');
+    data['committed'] = false;
+  } 
+  resolve(data['committed']);
 });
 
 const _lists = () => new Promise((resolve, reject) => {
@@ -189,5 +201,6 @@ module.exports = {
   commit: _commit,
   reset: _reset,
   lists: _lists,
-  get: _get
+  get: _get,
+  committed: _committed,
 };

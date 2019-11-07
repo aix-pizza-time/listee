@@ -23,3 +23,5 @@ COPY nginx.conf /etc/nginx/conf.d/pizzabot.conf
 RUN nginx -t
 
 COPY --from=builder /dist /usr/share/nginx/html
+
+ENV production=true

@@ -63,14 +63,8 @@ export default {
       this.$store.dispatch('list/commitList');
     },
     reset() {
+      this.$store.dispatch('list/resetList');
     },
-    eventNotifier(){
-      this.eventDisplay = false;
-      let vm = this;
-      setTimeout(() => {
-        vm.eventDisplay = false;
-      }, 5000);
-    }
   }
 };
 </script>

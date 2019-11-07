@@ -8,12 +8,14 @@
       <h2 v-if="this.list.length == 0">Currently no items to be bought 🙄</h2>
       <div v-else>
         <div v-for="item in list" :key="item.id" class="list-item">
-          <input :value="item.entry" :id="item.id" @blur="renameEntry" class="label" />
-          <button @click="deleteEntry(item.id)">
+          <input v-if="committed" disabled :value="item.entry" :id="item.id" class="label" />
+          <input v-else :value="item.entry" :id="item.id" @blur="renameEntry" class="label" />
+          <button v-if="!committed" @click="deleteEntry(item.id)">
             <i class="material-icons">close</i>
           </button>
         </div>
       </div>
+      <span class="committed" v-if="committed">List is finalized and needs to be reset to add new entries! Happy Shopping 🛒!</span>
     </div>
   </div>
 </template>
@@ -30,16 +32,12 @@ export default {
       renameStatus: state => state.list.renameStatus,
       commitState: state => state.list.commitState,
       resetState: state => state.list.resetState,
-      // list: state => state.list.list
+      // committed: state => state.list.committed
     }),
     ...mapGetters('list', {
-      list: 'list'
+      list: 'list',
+      committed: 'committed',
     }),
-  },
-  data: () => {
-    return {
-      privList: {}
-    }
   },
   methods: {
     deleteEntry(id){
@@ -47,6 +45,9 @@ export default {
     },
     renameEntry(e){
       // console.log(name);
+      if(this.committed){
+        return;
+      }
       let id = e.target.id;
       let entry = e.target.value;
       this.$store.dispatch('list/renameEntry', {id, entry});
@@ -54,29 +55,48 @@ export default {
   },
   created() {
     this.$store.dispatch('list/getList');
+    this.$store.dispatch('list/getCommitState');
   }
 };
 </script>
 
 <style lang="scss" scoped>
 .list {
-  max-width: 1024px;
+  position: relative;
   width: 100%;
   margin: 0 auto;
   padding: 2em;
-  .items {
+  // .list-item {
     // &:not(:last-child) {
-      &::after {
-        content: ' ';
-        display: block;
-        width: 80%;
-        margin: 0 auto;
-        border-bottom: solid 1px #ccc;
-      }
+    //   &::after {
+    //     content: ' ';
+    //     display: block;
+    //     width: 80%;
+    //     margin: 0 auto;
+    //     border-bottom: solid 1px #ccc;
+    //   }
     // }
+  // }
+}
+.committed {
+  color: #828282;
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: #e4e4e4;
+    z-index: -1;
+
   }
 }
 .list-item {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 2em;
+  width: 100%;
   display: flex;
   .label {
     flex-grow: 1;
@@ -85,6 +105,10 @@ export default {
     border: none;
     background: none;
     outline: none;
+    min-height: 48px;
+    &:disabled {
+      color: #424242;
+    }
   }
   button {
     background: none;

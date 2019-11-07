@@ -1,17 +1,53 @@
 {
-  "current": [
-    {
-      "id": "651a681b",
-      "entry": "Wein"
+  "current": [],
+  "archive": {
+    "0baf8e9a": {
+      "date": "07-11-2019-14-57-05",
+      "list": [
+        {
+          "id": "651a681b",
+          "entry": "Wein"
+        },
+        {
+          "id": "eb7a8794",
+          "entry": "Bier"
+        },
+        {
+          "id": "c10dbf7f",
+          "entry": "TK-Pizza"
+        }
+      ]
     },
-    {
-      "id": "eb7a8794",
-      "entry": "Bier"
+    "ef41f500": {
+      "date": "07-11-2019-15-18-28",
+      "list": [
+        {
+          "id": "96eaed8c",
+          "entry": "Weißwein"
+        },
+        {
+          "id": "b64c20bb",
+          "entry": "Rotwein"
+        },
+        {
+          "id": "532381b2",
+          "entry": "Rosé"
+        },
+        {
+          "id": "c10dbf7f",
+          "entry": "TK-Pizza"
+        }
+      ]
     },
-    {
-      "id": "c10dbf7f",
-      "entry": "TK-Pizzen"
+    "c748ed3a": {
+      "date": "07-11-2019-15-20-55",
+      "list": [
+        {
+          "id": "eb7a8794",
+          "entry": "Obazda"
+        }
+      ]
     }
-  ],
-  "archive": {}
+  },
+  "committed": false
 }

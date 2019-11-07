@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const host = 'http://localhost:3000';
+const host = process.env.production === 'true' ? '' : 'http://localhost:3000';
 
 Array.prototype.findIndexById = function (id) {
   if (typeof id !== 'string') {
@@ -19,11 +19,15 @@ const state = {
   renameStatus: null,
   commitStatus: null,
   resetStatus: null,
+  committed: false,
 };
 
 const getters = {
   list: (state) => {
     return state.list;
+  },
+  committed: (state) => {
+    return state.committed;
   }
 };
 
@@ -39,7 +43,19 @@ const actions = {
       });
   },
 
-  addEntry({_, commit}, item) {
+  getCommitState({commit}) {
+    axios.get(`${host}/api/committed`)
+      .then(({data}) => {
+        console.log(data);
+        commit('setGetStatus', 'successful');
+        commit('setCommitted', {committed: data.committed});
+      }).catch(() => {
+        commit('setGetStatus', 'failed');
+        commit('setCommitted', false);
+      });
+  },
+
+  addEntry({commit}, item) {
     // const prevList = [...state.items];
     axios.post(`${host}/api/add`, item)
       .then(({data}) => {
@@ -52,7 +68,6 @@ const actions = {
 
   renameEntry({state, commit}, {id, entry}) {
     const prevList = [...state.list];
-    console.log('Renamed ' + id + ' to  ' + entry);
     commit('setEntry', {id, entry});
     axios.post(`${host}/api/rename/${id}`, {'entry': entry})
       .then(() => {
@@ -64,7 +79,7 @@ const actions = {
       });
   },
 
-  deleteEntry({_, commit}, {id}) {
+  deleteEntry({commit}, {id}) {
     // const prevList = [...state.list];
     axios.delete(`${host}/api/delete/${id}`)
       .then(() => {
@@ -77,10 +92,11 @@ const actions = {
 
   resetList({state, commit}) {
     const prevList = [...state.list];
-    commit('setList', { list: {} });
+    commit('setList', { list: [] });
     axios.post(`${host}/api/reset`, {})
       .then(() => {
         commit('setResetStatus', 'successful');
+        commit('setCommitted', false);
       }).catch(() => {
         commit('setResetStatus', 'failed');
         // Roll back
@@ -88,16 +104,17 @@ const actions = {
       });
   },
 
-  commitList({state, commit}) {
-    const prevList = [...state.list];
+  commitList({commit}) {
+    // const prevList = [...state.list];
     // commit('setList', { list: {} });
     axios.post(`${host}/api/commit`, {})
       .then(() => {
         commit('setResetStatus', 'successful');
+        commit('setCommitted', {committed: true});
       }).catch(() => {
         commit('setResetStatus', 'failed');
         // Roll back
-        // commit('setList', { list: prevList });
+        commit('setCommitted', {committed: false});
       });
   }
 };
@@ -145,6 +162,10 @@ const mutations = {
   setResetStatus (state, status){
     state.resetStatus = status;
   },
+
+  setCommitted (state, {committed}){
+    state.committed = committed;
+  }
 };
 
 export default {
