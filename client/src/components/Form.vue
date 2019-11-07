@@ -1,5 +1,8 @@
 <template>
   <form v-on:submit.prevent @submit="add(newEntry)">
+    <div class="state" v-if="eventDisplay">
+      <StateDisplay></StateDisplay>
+    </div>
     <input
       type="text"
       v-model="newEntry"
@@ -15,37 +18,63 @@
     </button>
     <div class="spacer"></div>
     <div class="flexbox">
-      <CommitButton></CommitButton>
-      <ResetButton></ResetButton>
+      <button class="commitButton" type="button" @click="commit()">
+        <i class="material-icons">
+          receipt
+        </i>
+        <span>
+          Finalize List
+        </span>
+      </button>
+      <button class="resetButton" type="button" @click="reset()">
+        <i class="material-icons">
+          delete_outline
+        </i>
+        <span>
+          Reset List
+        </span>
+      </button>
     </div>
   </form>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-
-import {CommitButton, ResetButton} from './';
-
+import StateDisplay from './StateDisplay';
 export default {
   components: {
-    CommitButton,
-    ResetButton
+    StateDisplay
   },
   name: 'Form',
   data: () => {
     return {
       newEntry: '',
+      eventDisplay: false,
     };
   },
   computed: {
     ...mapState({
       addStatus: state => state.list.addStatus,
+      resetStatus: state => state.list.resetStatus,
+      commitStatus: state => state.list.commitStatus
     }),
   },
   methods: {
     add(entry) {
       this.newEntry = '';
       this.$store.dispatch('list/addEntry', {entry});
+    },
+    commit() {
+      this.$store.dispatch('list/commitList');
+    },
+    reset() {
+    },
+    eventNotifier(){
+      this.eventDisplay = false;
+      let vm = this;
+      setTimeout(() => {
+        vm.eventDisplay = false;
+      }, 5000);
     }
   }
 };
@@ -113,6 +142,61 @@ button {
       vertical-align: middle;
       font-size: 2em;
       line-height: 1;
+    }
+    span {
+      vertical-align: middle;
+    }
+}
+button.commitButton {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 1.5em;
+    background: #242424;
+    color: #ffffff;
+    display: block;
+    width: 100%;
+    border: solid 4px #242424;
+    outline: none;
+    padding: 0.5em 1em;
+    border-radius: 512px;
+    margin: 8px 0 4px;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: all linear 0.2s;
+    &:active, &:hover {
+      transition: all linear 0.02s;
+      background: #ffffff;
+      color: #242424;
+    }
+    i {
+      vertical-align: middle;
+    }
+    span {
+      vertical-align: middle;
+    }
+}
+button.resetButton {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 1.5em;
+    background: #242424;
+    color: #ffffff;
+    display: block;
+    width: 100%;
+    border: solid 4px #242424;
+    outline: none;
+    padding: 0.5em 1em;
+    border-radius: 512px;
+    margin: 8px 0 4px;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: all linear 0.2s;
+    &:active, &:hover {
+      transition: all linear 0.02s;
+      background: #cc0000;
+      border-color: #cc0000;
+      color: #ffffff;
+    }
+    i {
+      vertical-align: middle;
     }
     span {
       vertical-align: middle;

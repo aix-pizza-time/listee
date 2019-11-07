@@ -52,8 +52,9 @@ const actions = {
 
   renameEntry({state, commit}, {id, entry}) {
     const prevList = [...state.list];
+    // console.log('Renamed ' + id + ' to  ' + entry);
     commit('setEntry', {id, entry});
-    axios.post(`${host}/api/rename/${id}`, entry)
+    axios.post(`${host}/api/rename/${id}`, {'entry': entry})
       .then(() => {
         commit('setRenameStatus', 'successful');
       }).catch(() => {
@@ -85,6 +86,19 @@ const actions = {
         // Roll back
         commit('setList', { list: prevList });
       });
+  },
+
+  commitList({state, commit}) {
+    const prevList = [...state.list];
+    // commit('setList', { list: {} });
+    axios.post(`${host}/api/commit`, {})
+      .then(() => {
+        commit('setResetStatus', 'successful');
+      }).catch(() => {
+        commit('setResetStatus', 'failed');
+        // Roll back
+        // commit('setList', { list: prevList });
+      });
   }
 };
 
@@ -94,7 +108,10 @@ const mutations = {
   },
 
   setEntry (state, {id, entry}) {
-    state.list.splice.set(id, 1, entry);
+    // console.log(id);
+    // console.log(entry);
+    let _id = state.list.findIndexById(id);
+    state.list.splice(_id, 1, entry);
   },
 
   removeEntry (state, {id}){

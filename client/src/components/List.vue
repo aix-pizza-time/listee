@@ -8,7 +8,7 @@
       <h2 v-if="this.list.length == 0">Currently no items to be bought 🙄</h2>
       <div v-else>
         <div v-for="item in list" :key="item.id" class="list-item">
-          <input :value="item.entry" @blur="renameEntry(item.id,item.entry)" class="label" />
+          <input :value="item.entry" :id="item.id" @blur="renameEntry" class="label" />
           <button @click="deleteEntry(item.id)">
             <i class="material-icons">close</i>
           </button>
@@ -36,12 +36,20 @@ export default {
       list: 'list'
     }),
   },
+  data: () => {
+    return {
+      privList: {}
+    }
+  },
   methods: {
     deleteEntry(id){
       this.$store.dispatch('list/deleteEntry', {id});
     },
-    renameEntry(id, name){
-      this.$store.dispatch('list/renameEntry', {id,name});
+    renameEntry(e){
+      // console.log(name);
+      let id = e.target.id;
+      let entry = e.target.value;
+      this.$store.dispatch('list/renameEntry', {id, entry});
     }
   },
   created() {
