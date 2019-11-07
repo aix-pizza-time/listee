@@ -13,3 +13,11 @@ build:
     - docker push registry.git.rwth-aachen.de/occloxium-webdev/pizzabot/backend:latest
   tags:
     - occloxium-docker
+
+deploy:
+  stage: deploy
+  script:
+    - kubectl rollout restart -n web pizzabot-frontend
+    - kubectl rollout restart -n web pizzabot-backend
+  tags:
+    - cluster
