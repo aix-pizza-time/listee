@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const host = process.env.production === 'true' ? '' : 'http://localhost:3000';
+// const host = http://localhost:3000';
+const host = '';
 
 Array.prototype.findIndexById = function (id) {
   if (typeof id !== 'string') {
