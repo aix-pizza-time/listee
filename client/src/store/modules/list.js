@@ -46,7 +46,6 @@ const actions = {
   getCommitState({commit}) {
     axios.get(`${host}/api/committed`)
       .then(({data}) => {
-        console.log(data);
         commit('setGetStatus', 'successful');
         commit('setCommitted', {committed: data.committed});
       }).catch(() => {
