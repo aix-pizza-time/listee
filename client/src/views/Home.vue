@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    <h1>PizzaBot 🍕🍕</h1>
+    <StateDisplay></StateDisplay>
+    <h1>PizzaBot 🍕🍷</h1>
     <List class="list"></List>
     <Form></Form>
   </div>
@@ -9,12 +10,14 @@
 <script>
 import List from '@/components/List';
 import Form from '@/components/Form';
+import StateDisplay from '@/components/StateDisplay';
 
 export default {
   name: 'Home',
   components: {
     List,
     Form,
+    StateDisplay
   }
 };
 </script>

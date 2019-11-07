@@ -1,8 +1,5 @@
 <template>
   <form v-on:submit.prevent @submit="add(newEntry)">
-    <div class="state" v-if="eventDisplay">
-      <StateDisplay></StateDisplay>
-    </div>
     <input
       type="text"
       v-model="newEntry"
@@ -40,10 +37,8 @@
 
 <script>
 import { mapState } from 'vuex';
-import StateDisplay from './StateDisplay';
 export default {
   components: {
-    StateDisplay
   },
   name: 'Form',
   data: () => {
