@@ -52,7 +52,7 @@ const actions = {
 
   renameEntry({state, commit}, {id, entry}) {
     const prevList = [...state.list];
-    // console.log('Renamed ' + id + ' to  ' + entry);
+    console.log('Renamed ' + id + ' to  ' + entry);
     commit('setEntry', {id, entry});
     axios.post(`${host}/api/rename/${id}`, {'entry': entry})
       .then(() => {
@@ -111,7 +111,7 @@ const mutations = {
     // console.log(id);
     // console.log(entry);
     let _id = state.list.findIndexById(id);
-    state.list.splice(_id, 1, entry);
+    state.list.splice(_id, 1, {id: id, entry: entry});
   },
 
   removeEntry (state, {id}){
