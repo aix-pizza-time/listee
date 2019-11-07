@@ -42,15 +42,19 @@ const _add = (entry) => new Promise((resolve, reject) => {
       if (entry.length <= 0) {
         reject('Empty names are not allowed. Will not add');
       } else {
-        data['current'].push({
-          id: id,
-          entry: entry
-        });
-        commit(data);
-        resolve({
-          id: id,
-          entry: entry
-        });
+        if(data.hasOwnProperty('committed') && data['committed'] === true){
+          reject('List is already committed. Needs to be reset before new entries can be added');
+        } else {
+          data['current'].push({
+            id: id,
+            entry: entry
+          });
+          commit(data);
+          resolve({
+            id: id,
+            entry: entry
+          });
+        }
       }
     }
   }
@@ -65,14 +69,22 @@ const _rename = (id, newName) => new Promise((resolve, reject) => {
     console.log(newName);
     reject('Incorrect data type. Only strings are allowed');
   } else {
-    if (!data['current'].findById(id)) {
+    let index = data['current'].findIndexById(id);
+    if (index === -1) {
       // Element already present, retreat!
       reject('Element not present. Will not rename');
     } else {
       if (newName.length <= 0) {
         reject('Empty names are not allowed. Will not rename');
       } else {
-        data['current'][id] = newName;
+        // if(data.hasOwnProperty('committed') && data['committed'] === true){
+
+        // } else {
+          
+        // }
+        // Renaming is still allowed after commit so the previous control structure
+        // is not (yet) required
+        data['current'][index]['entry'] = newName;
         commit(data);
         resolve({
           id: id,
@@ -81,7 +93,6 @@ const _rename = (id, newName) => new Promise((resolve, reject) => {
       }
     }
   }
-
 });
 
 const _delete = (id) => new Promise((resolve, reject) => {
@@ -96,14 +107,18 @@ const _delete = (id) => new Promise((resolve, reject) => {
       // Element already present, retreat!
       reject('Element not present. Will not delete');
     } else {
-      let index = data['current'].findIndexById(id);
-      let old_data = data['current'][index];
-      data['current'].splice(index, 1);
-      commit(data);
-      resolve({
-        id: id,
-        entry: old_data
-      });
+      if(data.hasOwnProperty('committed') && data['committed'] === true){
+        reject('List is already committed. Needs to be reset before new entries can be added');
+      } else {
+        let index = data['current'].findIndexById(id);
+        let old_data = data['current'][index];
+        data['current'].splice(index, 1);
+        commit(data);
+        resolve({
+          id: id,
+          entry: old_data
+        });
+      }
     }
   }
 });
@@ -136,7 +151,7 @@ const _commit = () => new Promise((resolve, reject) => {
 const _reset = () => new Promise((resolve, reject) => {
   // stash the current state to avoid obstruction of db
   stash().catch((err) => (reject(err)));
-  if (!data['committed'] && data['committed'] !== true) {
+  if (!data.hasOwnProperty('committed') && data['committed'] !== true) {
     reject('List not committed. Will not reset');
   } else {
     let cur = data['current'];

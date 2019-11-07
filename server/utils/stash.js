@@ -11,8 +11,9 @@ const _stash = (data) => new Promise((resolve, reject) => {
     const dir = process.env.DATA_MOUNTING_POINT || './static';
     const _timestamp = timestamp();
     const file = `${_timestamp} - ${hash(_data, false)}`;
+    const contents = `${file}\n---\n` + JSON.stringify(data, null, '  ') + '\n---\n';
     _log(_timestamp, hash(_data), file);
-    fs.appendFileSync(`${dir}/.stash`, `${file}\n---\n` + JSON.stringify(data, null, '  '), (err) => {
+    fs.appendFileSync(`${dir}/.stash`, contents, (err) => {
         if(err){
             reject(err);
         } else {
