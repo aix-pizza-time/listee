@@ -10,9 +10,9 @@ const _stash = (data) => new Promise((resolve, reject) => {
     const _data = JSON.stringify(data);
     const dir = process.env.DATA_MOUNTING_POINT || './static';
     const _timestamp = timestamp();
-    const file = `${dir}/.${_timestamp}-${hash(_data)}.json`;
+    const file = `${_timestamp} - ${hash(_data, false)}`;
     _log(_timestamp, hash(_data), file);
-    fs.writeFile(file, JSON.stringify(data, null, '  '), (err) => {
+    fs.appendFileSync(`${dir}/.stash`, `${file}\n---\n` + JSON.stringify(data, null, '  '), (err) => {
         if(err){
             reject(err);
         } else {

@@ -97,7 +97,6 @@ const _delete = (id) => new Promise((resolve, reject) => {
       reject('Element not present. Will not delete');
     } else {
       let index = data['current'].findIndexById(id);
-      console.log(index);
       let old_data = data['current'][index];
       data['current'].splice(index, 1);
       commit(data);
