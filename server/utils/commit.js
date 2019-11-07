@@ -4,7 +4,7 @@ const hash = require('./hash');
 
 const _commit = (data) => {
     const _data = JSON.stringify(data);
-    const dir = process.env.DATA_MOUNTING_POINT || './static';
+    const dir = './static';
     const file = `${dir}/config.json`;
     const _timestamp = timestamp();
     _log(_timestamp, hash(_data), file);

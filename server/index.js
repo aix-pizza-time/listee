@@ -3,13 +3,6 @@ const bodyparser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
 
-const {stash, initialize} = require('./utils/');
-
-let _data = {
-    current: {},
-    archive: {},
-};
-
 const app = express();
 
 app.use(morgan('tiny'));
@@ -23,13 +16,8 @@ app.use(cors());
 
 require('./routes/api.js')(app, express.Router());
 
-const port = process.env.PORT || 3000;
-
+const port = 3000;
 
 app.listen(port, () => {
     console.log(`Listening to port ${port}`);
 });
-
-module.exports = {
-    stash: () => stash(data),
-};

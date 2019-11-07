@@ -8,7 +8,7 @@ const fs = require('fs');
  */
 const _stash = (data) => new Promise((resolve, reject) => {
     const _data = JSON.stringify(data);
-    const dir = process.env.DATA_MOUNTING_POINT || './static';
+    const dir = './static';
     const _timestamp = timestamp();
     const file = `${_timestamp} - ${hash(_data, false)}`;
     const contents = `${file}\n---\n` + JSON.stringify(data, null, '  ') + '\n---\n';

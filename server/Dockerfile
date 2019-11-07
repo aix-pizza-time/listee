@@ -10,6 +10,4 @@ RUN yarn install
 
 COPY . .
 
-RUN ls ./static
-
 CMD ["npm", "start"]

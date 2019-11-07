@@ -6,7 +6,7 @@ let {
 } = require('../utils/');
 let _stash = require('../utils/').stash;
 
-data = initialize(process.env.DATA_MOUNTING_POINT || "./static");
+data = initialize("./static");
 
 const stash = () => new Promise((resolve, reject) => {
   _stash(data).then(_ => resolve()).catch(err => reject(err));
