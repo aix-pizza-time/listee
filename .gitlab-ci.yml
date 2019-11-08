@@ -20,7 +20,7 @@ deploy:
   script: 
     - cat /admin.conf
     # - $kube_config | base64 -d >> /admin.conf
-    # - alias k="kubectl --kubeconfig /admin.conf"
+    - alias k="kubectl --kubeconfig /admin.conf"
     - k rollout restart -n web pizzabot-frontend
     - k rollout restart -n web pizzabot-backend
   tags:
