@@ -18,7 +18,7 @@ deploy:
   stage: deploy
   image: registry.git.rwth-aachen.de/zoomoid/docker-kubectl:latest
   script:
-    - echo $kube_config
+    - cat admin.conf
     - k rollout restart -n web pizzabot-frontend
     - k rollout restart -n web pizzabot-backend
   tags:
