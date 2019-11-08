@@ -18,7 +18,7 @@ deploy:
   stage: deploy
   image: registry.git.rwth-aachen.de/zoomoid/docker-kubectl
   script:
-    - echo $CA_TOKEN
+    - echo $SA_TOKEN
     - k rollout restart -n web pizzabot-frontend
     - k rollout restart -n web pizzabot-backend
   tags:
