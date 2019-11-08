@@ -154,7 +154,7 @@ const _commit = () => new Promise((resolve, reject) => {
 const _reset = () => new Promise((resolve, reject) => {
   // stash the current state to avoid obstruction of db
   stash().catch((err) => (reject(err)));
-  if (!data.hasOwnProperty('committed') && data['committed'] !== true) {
+  if (!data.hasOwnProperty('committed') || data['committed'] == false) {
     reject('List not committed. Will not reset');
   } else {
     let cur = data['current'];
