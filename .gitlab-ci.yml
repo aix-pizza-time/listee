@@ -21,7 +21,7 @@ deploy:
     - cat /admin.conf
     # - $kube_config | base64 -d >> /admin.conf
     - alias k="kubectl --kubeconfig /admin.conf"
-    - k rollout restart -n web pizzabot-frontend
-    - k rollout restart -n web pizzabot-backend
+    - kubectl --kubeconfig /admin.conf rollout restart -n web pizzabot-frontend
+    - kubectl --kubeconfig /admin.conf rollout restart -n web pizzabot-backend
   tags:
     - occloxium-docker
