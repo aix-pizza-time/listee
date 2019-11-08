@@ -22,4 +22,4 @@ deploy:
     - k rollout restart -n web pizzabot-frontend
     - k rollout restart -n web pizzabot-backend
   tags:
-    - cluster
+    - occloxium-docker
