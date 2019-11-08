@@ -20,9 +20,6 @@ deploy:
   variables:
     restart_deployment: "kubectl --kubeconfig /admin.conf rollout restart -n web deployment"
   script: 
-    - cat /admin.conf
-    # - $kube_config | base64 -d >> /admin.conf
-    - alias k="kubectl --kubeconfig /admin.conf"
     - $restart_deployment pizzabot-frontend
     - $restart_deployment pizzabot-backend
   tags:
