@@ -1,11 +1,11 @@
 <template>
   <div class="list">
     <h2 class="failed" v-if="getStatus === 'failed'">
-      <span>Failed to load list 😤</span>
-      <small>We are working on a solution as quick as possible 👨‍💻</small>
+      <span>Irgendwas ist schiefgelaufen... 😤</span>
+      <small>Wir arbeiten so schnell wie möglich an einer Lösung 👨‍💻</small>
     </h2>
     <div v-else>
-      <h2 v-if="this.list.length == 0">Currently no items to be bought 🙄</h2>
+      <h2 v-if="this.list.length == 0">Momentan soll nichts gekauft werden 🙄</h2>
       <div v-else>
         <div v-for="item in list" :key="item.id" class="list-item">
           <input v-if="committed" disabled :value="item.entry" :id="item.id" class="label" />
