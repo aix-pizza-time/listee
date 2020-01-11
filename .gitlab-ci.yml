@@ -2,6 +2,11 @@ stages:
   - build
   - deploy
 
+include:
+  - project: 'occloxium-webdev/k8s'
+    ref: master
+    file: '/ci/.gitlab-ci.yml'
+
 build:
   stage: build
   image: docker:latest
@@ -16,11 +21,6 @@ build:
 
 deploy:
   stage: deploy
-  image: registry.git.rwth-aachen.de/zoomoid/docker-kubectl:latest
-  variables:
-    restart_deployment: "kubectl --kubeconfig /admin.conf rollout restart -n web deployment"
-  script: 
-    - $restart_deployment pizzabot-frontend
-    - $restart_deployment pizzabot-backend
-  tags:
-    - occloxium-docker
+  extends: .kubectl
+  script:
+    - kubectl rollout restart deployment/pizzabot
