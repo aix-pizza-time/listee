@@ -1,6 +1,7 @@
 <template>
   <footer>
-      Built by <a href="https://git.rwth-aachen.de/zoomoid/" target="_blank">Alexander Bartolomey</a> with <span style="color: red">❤️</span> and 🍕
+      Gebaut von <a href="https://git.rwth-aachen.de/zoomoid/" target="_blank">Alexander
+      Bartolomey</a> mit viel <span style="color: red">❤️</span> und noch mehr 🍕!
   </footer>
 </template>
 

@@ -4,13 +4,13 @@
       type="text"
       v-model="newEntry"
       name="entry"
-      placeholder="Ingredient, drinks, random stuff..."/>
+      placeholder="Zutaten, Getränke, persönliche Extrawünsche..."/>
     <button class="addButton" type="button" @click="add(newEntry)">
       <i class="material-icons">
         add_shopping_cart
       </i>
       <span>
-        Add to list
+        Zur Liste hinzufügen
       </span>
     </button>
     <div class="spacer"></div>
