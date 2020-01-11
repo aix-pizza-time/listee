@@ -23,6 +23,7 @@ deploy:
   stage: deploy
   extends: .kubectl
   script:
-    - kubectl rollout restart deployment/pizzabot
+    - kubectl rollout restart deployment/pizzabot-frontend
+    - kubectl rollout restart deployment/pizzabot-backend
   tags:
     - cluster
