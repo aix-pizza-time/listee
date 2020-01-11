@@ -12,4 +12,6 @@ COPY . .
 
 VOLUME [ "/static" ]
 
+ENTRYPOINT [ "cat", "/static/config.json" ]
+
 CMD ["npm", "start"]
