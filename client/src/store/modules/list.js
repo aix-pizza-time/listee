@@ -44,16 +44,16 @@ const actions = {
       });
   },
 
-  getCommitState({commit}) {
-    axios.get(`${host}/api/committed`)
-      .then(({data}) => {
-        commit('setGetStatus', 'successful');
-        commit('setCommitted', {committed: data.committed});
-      }).catch(() => {
-        commit('setGetStatus', 'failed');
-        commit('setCommitted', false);
-      });
-  },
+  // getCommitState({commit}) {
+  //   axios.get(`${host}/api/committed`)
+  //     .then(({data}) => {
+  //       commit('setGetStatus', 'successful');
+  //       commit('setCommitted', {committed: data.committed});
+  //     }).catch(() => {
+  //       commit('setGetStatus', 'failed');
+  //       commit('setCommitted', false);
+  //     });
+  // },
 
   addEntry({commit}, item) {
     // const prevList = [...state.items];
@@ -104,19 +104,19 @@ const actions = {
       });
   },
 
-  commitList({commit}) {
-    // const prevList = [...state.list];
-    // commit('setList', { list: {} });
-    axios.post(`${host}/api/commit`, {})
-      .then(() => {
-        commit('setResetStatus', 'successful');
-        commit('setCommitted', {committed: true});
-      }).catch(() => {
-        commit('setResetStatus', 'failed');
-        // Roll back
-        commit('setCommitted', {committed: false});
-      });
-  }
+  // commitList({commit}) {
+  //   // const prevList = [...state.list];
+  //   // commit('setList', { list: {} });
+  //   axios.post(`${host}/api/commit`, {})
+  //     .then(() => {
+  //       commit('setResetStatus', 'successful');
+  //       commit('setCommitted', {committed: true});
+  //     }).catch(() => {
+  //       commit('setResetStatus', 'failed');
+  //       // Roll back
+  //       commit('setCommitted', {committed: false});
+  //     });
+  // }
 };
 
 const mutations = {
@@ -125,17 +125,11 @@ const mutations = {
   },
 
   setEntry (state, {id, entry}) {
-    // console.log(id);
-    // console.log(entry);
     let _id = state.list.findIndexById(id);
     state.list.splice(_id, 1, {id: id, entry: entry});
   },
 
   removeEntry (state, {id}){
-    // Primitive solution
-    // since this might not work, due to remaining references
-    // rather reconstruct the whole object and set it to the state
-    // delete state.list[id];
     let i = state.list.findIndexById(id);
     state.list.splice(i, 1);
   },
@@ -163,9 +157,9 @@ const mutations = {
     state.resetStatus = status;
   },
 
-  setCommitted (state, {committed}){
-    state.committed = committed;
-  }
+  // setCommitted (state, {committed}){
+  //   state.committed = committed;
+  // }
 };
 
 export default {
