@@ -28,6 +28,10 @@ Array.prototype.findIndexById = function (id) {
   }
 };
 
+/**
+ * Adds a new item to the list if and only if its (exact) value is not yet present
+ * @param {string} entry the new entry to the list
+ */
 const _add = (entry) => new Promise((resolve, reject) => {
   const id = hash(entry);
   if (typeof entry !== 'string') {
@@ -60,6 +64,11 @@ const _add = (entry) => new Promise((resolve, reject) => {
   }
 });
 
+/**
+ * Renames a specific item
+ * @param {Number} id Item ID
+ * @param {String} newName The item's new name
+ */
 const _rename = (id, newName) => new Promise((resolve, reject) => {
   // stash the current state to avoid obstruction of db
   stash().catch((err) => (reject(err)));
@@ -95,6 +104,10 @@ const _rename = (id, newName) => new Promise((resolve, reject) => {
   }
 });
 
+/**
+ * Deletes a singular item from the current list based on its ID
+ * @param {Number} id item id
+ */
 const _delete = (id) => new Promise((resolve, reject) => {
   // stash the current state to avoid obstruction of db
   stash().catch((err) => (reject(err)));
@@ -124,6 +137,7 @@ const _delete = (id) => new Promise((resolve, reject) => {
 });
 
 /**
+ * @deprecated
  * 'Commit' will copy the entries from the staging (current) zone
  * into a timestamped archive of previous lists.
  * It however does not alter the state of the 'current' list, as 
@@ -148,23 +162,27 @@ const _commit = () => new Promise((resolve, reject) => {
 });
 
 /**
- * Resets the currently only if the list has previously been committed
- * to the index, i.e. by calling POST /api/commit
+ * Resets the current list
  */
 const _reset = () => new Promise((resolve, reject) => {
   // stash the current state to avoid obstruction of db
   stash().catch((err) => (reject(err)));
-  if (!data.hasOwnProperty('committed') || data['committed'] == false) {
-    reject('List not committed. Will not reset');
-  } else {
-    let cur = data['current'];
-    data['current'] = [];
-    data['committed'] = false;
-    commit(data);
-    resolve(cur);
-  }
+  // if (!data.hasOwnProperty('committed') || data['committed'] == false) {
+  //   reject('List not committed. Will not reset');
+  // } else {
+    
+  // }
+  let cur = data['current'];
+  data['current'] = [];
+  // data['committed'] = false;
+  commit(data);
+  resolve(cur);
 });
 
+/**
+ * @deprecated
+ * Returns a resolving Promise with true if current list is committed, otherwise a false one.
+ */
 const _committed = () => new Promise((resolve, reject) => {
   if(!data.hasOwnProperty('committed')){
     console.log('Current data set is missing the \'committed\' property. Adding it...');

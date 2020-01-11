@@ -19,20 +19,20 @@ module.exports = function (app, router) {
     })
   });
 
-  router.get('/committed', (req, res, next) => {
-    controller.committed().then((data) => {
-      res.json({
-        committed: data,
-        status: 'ok'
-      });
-    }).catch((err) => {
-      console.log(err);
-      res.status(500).json({
-        error: '500',
-        msg: err.toString(),
-      });
-    });
-  });
+  // router.get('/committed', (req, res, next) => {
+  //   controller.committed().then((data) => {
+  //     res.json({
+  //       committed: data,
+  //       status: 'ok'
+  //     });
+  //   }).catch((err) => {
+  //     console.log(err);
+  //     res.status(500).json({
+  //       error: '500',
+  //       msg: err.toString(),
+  //     });
+  //   });
+  // });
 
   router.get('/list/:id', (req, res, next) => {
     controller.get(req.params.id).then((data) => {
