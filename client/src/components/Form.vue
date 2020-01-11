@@ -15,14 +15,14 @@
     </button>
     <div class="spacer"></div>
     <div class="flexbox">
-      <button class="commitButton" type="button" @click="commit()">
+      <!-- <button class="commitButton" type="button" @click="commit()">
         <i class="material-icons">
           receipt
         </i>
         <span>
           Finalize List
         </span>
-      </button>
+      </button> -->
       <button class="resetButton" type="button" @click="reset()">
         <i class="material-icons">
           delete_outline
@@ -51,7 +51,7 @@ export default {
     ...mapState({
       addStatus: state => state.list.addStatus,
       resetStatus: state => state.list.resetStatus,
-      commitStatus: state => state.list.commitStatus
+      // commitStatus: state => state.list.commitStatus
     }),
   },
   methods: {
@@ -59,9 +59,9 @@ export default {
       this.newEntry = '';
       this.$store.dispatch('list/addEntry', {entry});
     },
-    commit() {
-      this.$store.dispatch('list/commitList');
-    },
+    // commit() {
+    //   this.$store.dispatch('list/commitList');
+    // },
     reset() {
       this.$store.dispatch('list/resetList');
     },
@@ -78,7 +78,7 @@ form {
 }
 .flexbox {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
     button {
@@ -136,33 +136,33 @@ button.addButton {
       vertical-align: middle;
     }
 }
-button.commitButton {
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 1em;
-    background: #242424;
-    color: #ffffff;
-    display: block;
-    width: 100%;
-    border: solid 4px #242424;
-    outline: none;
-    padding: 0.5em 1em;
-    border-radius: 512px;
-    margin: 8px 0 4px;
-    text-transform: uppercase;
-    font-weight: bold;
-    transition: all linear 0.2s;
-    &:active, &:hover {
-      transition: all linear 0.02s;
-      background: #ffffff;
-      color: #242424;
-    }
-    i {
-      vertical-align: middle;
-    }
-    span {
-      vertical-align: middle;
-    }
-}
+// button.commitButton {
+//     font-family: 'IBM Plex Sans', sans-serif;
+//     font-size: 1em;
+//     background: #242424;
+//     color: #ffffff;
+//     display: block;
+//     width: 100%;
+//     border: solid 4px #242424;
+//     outline: none;
+//     padding: 0.5em 1em;
+//     border-radius: 512px;
+//     margin: 8px 0 4px;
+//     text-transform: uppercase;
+//     font-weight: bold;
+//     transition: all linear 0.2s;
+//     &:active, &:hover {
+//       transition: all linear 0.02s;
+//       background: #ffffff;
+//       color: #242424;
+//     }
+//     i {
+//       vertical-align: middle;
+//     }
+//     span {
+//       vertical-align: middle;
+//     }
+// }
 button.resetButton {
     font-family: 'IBM Plex Sans', sans-serif;
     font-size: 1em;
