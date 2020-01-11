@@ -12,6 +12,4 @@ COPY . .
 
 VOLUME [ "/static" ]
 
-ENTRYPOINT [ "cat", "/static/config.json" ]
-
-CMD ["npm", "start"]
+ENTRYPOINT [ "bash", "docker-entrypoint.sh" ]
