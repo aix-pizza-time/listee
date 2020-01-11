@@ -15,7 +15,6 @@
           </button>
         </div>
       </div>
-      <span class="committed" v-if="committed">List is finalized and needs to be reset to add new entries! Happy Shopping 🛒!</span>
     </div>
   </div>
 </template>
@@ -30,13 +29,11 @@ export default {
       getStatus: state => state.list.getStatus,
       deleteStatus: state => state.list.deleteStatus,
       renameStatus: state => state.list.renameStatus,
-      commitState: state => state.list.commitState,
       resetState: state => state.list.resetState,
       // committed: state => state.list.committed
     }),
     ...mapGetters('list', {
       list: 'list',
-      committed: 'committed',
     }),
   },
   methods: {
@@ -55,7 +52,6 @@ export default {
   },
   created() {
     this.$store.dispatch('list/getList');
-    this.$store.dispatch('list/getCommitState');
   }
 };
 </script>
@@ -77,20 +73,6 @@ export default {
     //   }
     // }
   // }
-}
-.committed {
-  color: #828282;
-  &::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: #e4e4e4;
-    z-index: -1;
-
-  }
 }
 .list-item {
   max-width: 1024px;

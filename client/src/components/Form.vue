@@ -28,7 +28,7 @@
           delete_outline
         </i>
         <span>
-          Reset List
+          Liste zurücksetzen
         </span>
       </button>
     </div>
@@ -190,5 +190,8 @@ button.resetButton {
     span {
       vertical-align: middle;
     }
+}
+button {
+  cursor: pointer;
 }
 </style>
