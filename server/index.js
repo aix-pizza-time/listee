@@ -9,11 +9,6 @@ app.use(morgan('tiny'));
 app.use(bodyparser.json());
 app.use(cors());
 
-// app.use((req, res, next) => {
-//     console.log(_data);
-//     next();
-// });
-
 require('./routes/api.js')(app, express.Router());
 
 const port = 3000;
