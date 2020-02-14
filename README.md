@@ -67,7 +67,7 @@ for two deployments of both images, `listee-frontend-deployment` and `listee-bac
 
 - [ ] Add redis backend instead of file-based storage
 - [ ] Add user authentication using JWT from `$HOSTNAME/auth`
--  [] Redesign frontend to adopt some colors rather than grey and white
+- [ ] Redesign frontend to adopt some colors rather than grey and white
 
 # v2.0
 
