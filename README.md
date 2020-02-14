@@ -65,12 +65,12 @@ for two deployments of both images, `listee-frontend-deployment` and `listee-bac
 
 # v1.1
 
-- [] Add redis backend instead of file-based storage
-- [] Add user authentication using JWT from `$HOSTNAME/auth`
-- [] Redesign frontend to adopt some colors rather than grey and white
+- [ ] Add redis backend instead of file-based storage
+- [ ] Add user authentication using JWT from `$HOSTNAME/auth`
+-  [] Redesign frontend to adopt some colors rather than grey and white
 
 # v2.0
 
-- [] Integrate price interpolation based on scanned receipts (s. other projects)
-- [] Refactor API
-- [] Integrate into Service Discovery
+- [ ] Integrate price interpolation based on scanned receipts (s. other projects)
+- [ ] Refactor API
+- [ ] Integrate into Service Discovery
